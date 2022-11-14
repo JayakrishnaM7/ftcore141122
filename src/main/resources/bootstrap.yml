@@ -1,0 +1,50 @@
+management: 
+  endpoint: 
+    metrics: 
+      enabled: true
+    prometheus: 
+      enabled: true
+  endpoints: 
+    web: 
+      exposure: 
+        include: "*"
+  metrics: 
+    export: 
+      prometheus: 
+        enabled: true
+spring: 
+  application: 
+    name: corefundtransfer
+  cloud: 
+    config: 
+      failFast: false
+      retry: 
+        maxAttempts: 20
+      uri: ${CONFIG_SERVER_URI}
+  profiles: 
+    active: ${PROFILE:dev}
+  sleuth: 
+    sampler: 
+      percentage: 1
+  api: 
+    accountdetails: 
+      context-path: /CurrentAccount/{currentaccountId}/Retrieve
+      hosturl: v1/bian-3/core/payment/creditor/10.0.0/
+      jolt-filename: accountdetails167168-jolt.json
+    fundtransferinitiate: 
+      context-path: /PaymentInitiation/Initiate
+      hosturl: v1/bian-3/core/payment/creditor/10.0.0/
+      jolt-filename: fundtransferinitiate651858-jolt.json
+    paymentexecution: 
+      context-path: /PaymentExecution/Initiate
+      hosturl: v1/bian-3/core/payment/creditor/10.0.0/
+      jolt-filename: paymentexecution539698-jolt.json
+    verifyaccount: 
+      context-path: /CurrentAccount/{currentaccountId}/Retrieve
+      hosturl: v1/bian-3/core/payment/creditor/10.0.0/
+      jolt-filename: verifyaccount578739-jolt.json
+  datasource: 
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    password: ${mysql_pwd}
+    url: jdbc:mysql://${mysql_url}:3306/camunda
+    username: ${mysql_user}
